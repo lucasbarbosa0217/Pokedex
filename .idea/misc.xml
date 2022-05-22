@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Desktop/Pokedex/app/src/main/res/layout/activity_search_activy.xml" value="0.23899102180418982" />
+        <entry key="..\:/Desktop/Pokedex/app/src/main/res/layout/list_pokemon_activity.xml" value="0.19199999334161955" />
+        <entry key="..\:/Desktop/Pokedex/app/src/main/res/layout/pokemon_info_activity.xml" value="0.15709090364314326" />
+        <entry key="..\:/Desktop/Pokedex/app/src/main/res/layout/pokemon_list_item.xml" value="0.21818181061547676" />
+        <entry key="..\:/Users/lucassb/AndroidStudioProjects/Pokedex/app/src/main/res/layout/activity_main.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/lucassb/AndroidStudioProjects/Pokedex/app/src/main/res/layout/list_pokemon_activity.xml" value="0.20863616930312098" />
+        <entry key="..\:/Users/lucassb/AndroidStudioProjects/Pokedex/app/src/main/res/layout/pokemon_list_item.xml" value="0.2" />
+        <entry key="..\:/Users/lucassb/Desktop/Pokedex/app/src/main/res/drawable/cardview.xml" value="0.123" />
+        <entry key="..\:/Users/lucassb/Desktop/Pokedex/app/src/main/res/drawable/edittext.xml" value="0.123" />
+        <entry key="..\:/Users/lucassb/Desktop/Pokedex/app/src/main/res/layout/list_pokemon_activity.xml" value="0.152" />
+        <entry key="..\:/Users/lucassb/Desktop/Pokedex/app/src/main/res/layout/pokemon_info_activity.xml" value="0.2987721691678035" />
+        <entry key="..\:/Users/lucassb/Desktop/Pokedex/app/src/main/res/layout/pokemon_list_item.xml" value="0.264" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

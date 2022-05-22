@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#3f3f41</color>
+    <color name="black2">#2F2F30</color>
+    <color name="black3">#616161</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="white2">#F0F0F0</color>
+    <color name='green'>#81202C70</color>
+    <color name="red_pokedex">#F44336</color>
+
+    <color name="type_grass">#60B14E</color>
+    <color name="type_fire">#D55F10</color>
+    <color name="type_water">#3C7DCD</color>
+    <color name="type_electric">#F3B64D</color>
+    <color name="type_psychic">#D65480</color>
+    <color name="type_dark">#1B1B1B</color>
+    <color name="type_fight">#9F4F12</color>
+    <color name="type_fairy">#FF94B8</color>
+    <color name="type_poison">#983EA3</color>
+    <color name="type_steel">#979797</color>
+    <color name="type_bug">#427736</color>
+    <color name="type_ground">#B3712B</color>
+    <color name="type_rock">#654320</color>
+    <color name="type_flying">#9FC4C8</color>
+    <color name="type_normal">#D8D3CC</color>
+    <color name="type_dragon">#393A7A</color>
+    <color name="type_ice">#95DAE3</color>
+    <color name="type_ghost">#421F49</color>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</resources>
