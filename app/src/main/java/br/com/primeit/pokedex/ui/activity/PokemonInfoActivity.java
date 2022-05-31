@@ -1,11 +1,6 @@
 package br.com.primeit.pokedex.ui.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
-import androidx.compose.ui.graphics.Color;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.content.ContextCompat;
-
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,17 +11,22 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.material.card.MaterialCardView;
 
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 import br.com.primeit.pokedex.R;
 import br.com.primeit.pokedex.model.PokemonDesc;
-import br.com.primeit.pokedex.model.PokemonDesc.genera;
-
 import br.com.primeit.pokedex.model.info.PokemonInfo;
 import br.com.primeit.pokedex.retrofit.PokedexRetrofit;
 import br.com.primeit.pokedex.retrofit.service.PokemonService;
@@ -41,13 +41,12 @@ public class PokemonInfoActivity extends AppCompatActivity {
     public PokemonService service = new PokedexRetrofit().getPokemonService();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Window window = getWindow();
         Intent intent = getIntent();
         numberPoke = intent.getIntExtra("pokemon", 0);
         startLoadingScreen();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pokemon_info_activity);
-        getSupportActionBar().hide();
+        Objects.requireNonNull(getSupportActionBar()).hide();
         searchDesc(numberPoke);
     }
 
@@ -64,9 +63,10 @@ public class PokemonInfoActivity extends AppCompatActivity {
         Call<PokemonDesc> descCall = service.searchDesc(id);
         descCall.enqueue(new Callback<PokemonDesc>() {
             @Override
-            public void onResponse(Call<PokemonDesc> call, Response<PokemonDesc> response) {
+            public void onResponse(@NonNull Call<PokemonDesc> call, @NonNull Response<PokemonDesc> response) {
                 if(response.isSuccessful()){
                     PokemonDesc description = response.body();
+                    assert description != null;
                     setInfoDesc(description);
                     searchPokeInfo(numberPoke);
 
@@ -78,7 +78,7 @@ public class PokemonInfoActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<PokemonDesc> call, Throwable t) {
+            public void onFailure(@NonNull Call<PokemonDesc> call, @NonNull Throwable t) {
                 Toast.makeText(PokemonInfoActivity.this, "Connection Error", Toast.LENGTH_SHORT).show();
                 finish();
             }
@@ -92,7 +92,6 @@ public class PokemonInfoActivity extends AppCompatActivity {
         TextView genus = findViewById(R.id.genusText);
         genus.setText(generoString);
 
-        List<PokemonDesc.flavor_text> listFlavor = description.getFlavor();
         PokemonDesc.flavor_text flavor = description.getFirstEnglishEntry();
         TextView descText = findViewById(R.id.descText);
         String flavorText = flavor.toString().replace("\n", " ");
@@ -103,14 +102,15 @@ public class PokemonInfoActivity extends AppCompatActivity {
     public void searchPokeInfo(int id){
         service = new PokedexRetrofit().getPokemonService();
 
-        Call pokeInfo = service.searchInfo(id);
+        Call<PokemonInfo> pokeInfo = service.searchInfo(id);
         pokeInfo.enqueue(new Callback<PokemonInfo>() {
             @Override
-            public void onResponse(Call<PokemonInfo> call, retrofit2.Response<PokemonInfo> response) {
+            public void onResponse(@NonNull Call<PokemonInfo> call, @NonNull retrofit2.Response<PokemonInfo> response) {
                 if(response.isSuccessful()){
                     PokemonInfo info = response.body();
                     Log.w("ARRRG", "onResponse: "+response.body());
                     pokemonsInfos= info;
+                    assert pokemonsInfos != null;
                     setInfo(pokemonsInfos);
                 }else{
                     Toast.makeText(PokemonInfoActivity.this, "Connection Error", Toast.LENGTH_SHORT).show();
@@ -120,7 +120,7 @@ public class PokemonInfoActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<PokemonInfo> call, Throwable t) {
+            public void onFailure(@NonNull Call<PokemonInfo> call, @NonNull Throwable t) {
                 Toast.makeText(PokemonInfoActivity.this, "Connection Error", Toast.LENGTH_SHORT).show();
                 finish();
             }
@@ -134,9 +134,10 @@ public class PokemonInfoActivity extends AppCompatActivity {
         finish();
         }
 
+    @SuppressLint("SetTextI18n")
     public void setInfo(PokemonInfo info){
         setPokemonImage(numberPoke);
-        setPokemonNumberField(numberPoke);
+        setPokemonNumberField();
         //findViewById
         pokemonsInfos = info;
         TextView pokemonName = findViewById(R.id.PokemonInfoName);
@@ -197,7 +198,7 @@ public class PokemonInfoActivity extends AppCompatActivity {
 
     }
 
-    private void setPokemonNumberField(int numberPoke) {
+    private void setPokemonNumberField() {
     }
 
     private void setPokemonImage(int numberPoke) {
@@ -209,7 +210,7 @@ public class PokemonInfoActivity extends AppCompatActivity {
     }
 
     private Long chooseColor(String nomeTipo) {
-        long color = 0;
+        long color;
         switch(nomeTipo){
             case "grass":color= ContextCompat.getColor(this, R.color.type_grass);break;
             case "fire":color= ContextCompat.getColor(this, R.color.type_fire);break;

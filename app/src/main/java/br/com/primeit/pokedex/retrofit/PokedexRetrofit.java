@@ -1,7 +1,6 @@
 package br.com.primeit.pokedex.retrofit;
 
 import br.com.primeit.pokedex.retrofit.service.PokemonService;
-import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 

@@ -1,10 +1,5 @@
 package br.com.primeit.pokedex.model;
 
-import androidx.room.Entity;
-import androidx.room.PrimaryKey;
-
-import java.util.List;
-
 public class Pokemon {
 
 

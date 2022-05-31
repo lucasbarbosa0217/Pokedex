@@ -3,6 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Desktop/AndroidPokedex/Pokedex/app/src/main/res/drawable/splash_bg.xml" value="0.1" />
+        <entry key="..\:/Desktop/AndroidPokedex/Pokedex/app/src/main/res/layout-v26/pokemon_info_activity.xml" value="0.1375" />
+        <entry key="..\:/Desktop/AndroidPokedex/Pokedex/app/src/main/res/layout/list_pokemon_activity.xml" value="0.11286874732791792" />
+        <entry key="..\:/Desktop/AndroidPokedex/Pokedex/app/src/main/res/layout/pokemon_info_activity.xml" value="0.23899102180418982" />
+        <entry key="..\:/Desktop/AndroidPokedex/Pokedex/app/src/main/res/layout/pokemon_list_item.xml" value="0.11286874732791792" />
+        <entry key="..\:/Desktop/AndroidPokedex/Pokedex/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.198" />
         <entry key="..\:/Desktop/Pokedex/app/src/main/res/layout/activity_search_activy.xml" value="0.23899102180418982" />
         <entry key="..\:/Desktop/Pokedex/app/src/main/res/layout/list_pokemon_activity.xml" value="0.19199999334161955" />
         <entry key="..\:/Desktop/Pokedex/app/src/main/res/layout/pokemon_info_activity.xml" value="0.15709090364314326" />

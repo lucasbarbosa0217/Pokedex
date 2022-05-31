@@ -1,9 +1,5 @@
 package br.com.primeit.pokedex.ui.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -11,14 +7,19 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import br.com.primeit.pokedex.R;
 import br.com.primeit.pokedex.model.Pokemon;
@@ -30,13 +31,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 
 public class ListPokemonActivity extends AppCompatActivity {
-    private ListPokemonAdapter adapter = new ListPokemonAdapter(this);
-    private RecyclerView listPokemon;
+    private final ListPokemonAdapter adapter = new ListPokemonAdapter(this);
     private int offset;
     private int limit;
     private ArrayList<Pokemon> pokemons;
     private EditText searchEditText;
-    private PokemonService service;
     public ProgressDialog dialog;
     public TabLayout tabLayout;
     public TabLayout.Tab tab1;
@@ -45,8 +44,9 @@ public class ListPokemonActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list_pokemon_activity);
-        getSupportActionBar().hide();
-        StartLoadingScreen();
+       setTheme(R.style.Theme_Splash);
+
+        Objects.requireNonNull(getSupportActionBar()).hide();
         offset = 0;
         limit = 898;
         searchPokemon(limit, offset);
@@ -117,14 +117,10 @@ public class ListPokemonActivity extends AppCompatActivity {
     }
 
     private void setReloadButton(ImageButton fab) {
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
+        fab.setOnClickListener(view -> {
 
-            public void onClick(View view) {
-
-                StartLoadingScreen();
-                searchPokemon(limit, offset);
-            }
+            StartLoadingScreen();
+            searchPokemon(limit, offset);
         });
     }
 
@@ -138,27 +134,33 @@ public class ListPokemonActivity extends AppCompatActivity {
 
 
     public void searchPokemon(int limit, int offset){
-        service = new PokedexRetrofit().getPokemonService();
+        PokemonService service = new PokedexRetrofit().getPokemonService();
         Call<ResponsePokemon> responseCall = service.searchAll(limit, offset);
 
         responseCall.enqueue(new Callback<ResponsePokemon>() {
             @Override
-            public void onResponse(Call<ResponsePokemon> call, retrofit2.Response<ResponsePokemon> response) {
+            public void onResponse(@NonNull Call<ResponsePokemon> call, @NonNull retrofit2.Response<ResponsePokemon> response) {
                 if (response.isSuccessful()){
                     ResponsePokemon resposta = response.body();
+                    assert resposta != null;
                     pokemons = resposta.getResults();
                     adapter.update(pokemons);
                     configureRecyclerView();
-                    dialog.hide();
                 }else{
                     Toast.makeText(ListPokemonActivity.this, "Erro de Conexão", Toast.LENGTH_SHORT).show();
-                    dialog.hide();
                 }
+                if(dialog != null){
+                if(dialog.isShowing()){
+                    dialog.hide();
+                }}
             }
             @Override
-            public void onFailure(Call<ResponsePokemon> call, Throwable t) {
+            public void onFailure(@NonNull Call<ResponsePokemon> call, @NonNull Throwable t) {
                 Toast.makeText(ListPokemonActivity.this, "Erro De Conexão", Toast.LENGTH_SHORT).show();
-                dialog.hide();
+                if(dialog != null){
+                    if(dialog.isShowing()){
+                        dialog.hide();
+                    }}
             }
         });
     }
@@ -166,31 +168,30 @@ public class ListPokemonActivity extends AppCompatActivity {
 
 
     public void configureRecyclerView(){
-        listPokemon = findViewById(R.id.activity_list_pokemon_lista);
+        RecyclerView listPokemon = findViewById(R.id.activity_list_pokemon_lista);
         listPokemon.setAdapter(adapter);
         listPokemon.setHasFixedSize(true);
         final GridLayoutManager layoutManager = new GridLayoutManager(this, 1);
         listPokemon.setLayoutManager(layoutManager);
-        adapter.setOnItemClickListener(new ListPokemonAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(int position, int pokemon) {
+        adapter.setOnItemClickListener((position, pokemon) -> {
 
-                if (hasConnectivity()) {
-                    Intent intent = new Intent(ListPokemonActivity.this, PokemonInfoActivity.class);
-                    intent.putExtra("pokemon", pokemon);
-                    startActivity(intent);
-                    overridePendingTransition(R.anim.slide_out_bottom, R.anim.slide_in_bottom);
-                }else{
-                    Toast.makeText(ListPokemonActivity.this, "Erro de Conexão", Toast.LENGTH_SHORT).show();
-                }
+            if (hasConnectivity()) {
+                Intent intent = new Intent(ListPokemonActivity.this, PokemonInfoActivity.class);
+                intent.putExtra("pokemon", pokemon);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_out_bottom, R.anim.slide_in_bottom);
+            }else{
+                Toast.makeText(ListPokemonActivity.this, "Erro de Conexão", Toast.LENGTH_SHORT).show();
             }
         });
+        setTheme(R.style.Theme_Pokedex);
+
     }
 
 
     public boolean hasConnectivity() {
         ConnectivityManager connectivityManager = (ConnectivityManager)
-                this.getSystemService(this.CONNECTIVITY_SERVICE);
+                this.getSystemService(CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = connectivityManager.getActiveNetworkInfo();
         return activeNetwork != null;
     }

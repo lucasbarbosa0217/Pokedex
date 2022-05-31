@@ -15,23 +15,23 @@
         android:background="@color/white"
         android:ems="10"
         android:fontFamily="@font/montserrat"
-        android:hint="Search"
+        android:hint="@string/search"
         android:inputType="text"
         android:padding="12dp"
         android:textColor="@color/black2"
-        android:textFontWeight="800"
-        android:textSize="18dp"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="1.0"
+        android:autofillHints="" />
 
     <ImageButton
         android:id="@+id/deleteText"
         android:layout_width="82dp"
         android:layout_height="48dp"
         android:background="@android:color/transparent"
-        android:contentDescription="Delete text"
+        android:contentDescription="@string/delete_text"
 
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -64,14 +64,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:fontFamily="@font/montserrat_light"
-                android:lineHeight="26sp"
-                android:text="Select or\nSearch a Pokémon"
+                android:text="@string/select_or_nsearch_a_pok_mon"
                 android:textColor="@color/white"
                 android:textSize="24sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.013"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"></TextView>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageButton
                 android:id="@+id/reloadList"
@@ -80,14 +79,15 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:background="@android:color/transparent"
-                android:tint="@color/white2"
+                app:tint="@color/white2"
                 app:layout_constraintBottom_toBottomOf="@+id/textView5"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.0"
-                app:srcCompat="@drawable/ic_restart_alt_fill1_wght100_grad_25_opsz40" />
+                app:srcCompat="@drawable/ic_restart_alt_fill1_wght100_grad_25_opsz40"
+                android:contentDescription="@string/reload_icon" />
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tabLayout"
@@ -107,55 +107,55 @@
                     android:id="@+id/tabItem7"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="All" />
+                    android:text="@string/all" />
 
                 <com.google.android.material.tabs.TabItem
                     android:id="@+id/tabItem8"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Kanto" />
+                    android:text="@string/kanto" />
 
                 <com.google.android.material.tabs.TabItem
                     android:id="@+id/tabItem9"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Johto" />
+                    android:text="@string/johto" />
 
                 <com.google.android.material.tabs.TabItem
                     android:id="@+id/tabItem10"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Hoenn" />
+                    android:text="@string/hoenn" />
 
                 <com.google.android.material.tabs.TabItem
                     android:id="@+id/tabItem11"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Sinnoh" />
+                    android:text="@string/sinnoh" />
 
                 <com.google.android.material.tabs.TabItem
                     android:id="@+id/tabItem12"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Unova" />
+                    android:text="@string/unova" />
 
                 <com.google.android.material.tabs.TabItem
                     android:id="@+id/tabItem13"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Kalos" />
+                    android:text="@string/kalos" />
 
                 <com.google.android.material.tabs.TabItem
                     android:id="@+id/tabItem14"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Alola" />
+                    android:text="@string/alola" />
 
                 <com.google.android.material.tabs.TabItem
                     android:id="@+id/tabItem15"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Galar" />
+                    android:text="@string/galar" />
             </com.google.android.material.tabs.TabLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,24 +1,24 @@
 package br.com.primeit.pokedex.ui.recyclerview.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.RecyclerView.Adapter;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import br.com.primeit.pokedex.R;
 import br.com.primeit.pokedex.model.Pokemon;
 
@@ -40,6 +40,7 @@ public class ListPokemonAdapter extends Adapter<ListPokemonAdapter.ViewHolder>{
         this.context = context;
     }
 
+    @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View viewCreated = LayoutInflater.from(parent.getContext()).inflate(R.layout.pokemon_list_item, parent, false);
@@ -57,11 +58,13 @@ public class ListPokemonAdapter extends Adapter<ListPokemonAdapter.ViewHolder>{
         return pokemonsList.size();
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void update(List<Pokemon> pokemons){
         pokemonsList.addAll(pokemons);
         notifyDataSetChanged();
 
     }
+    @SuppressLint("NotifyDataSetChanged")
     public void filterList(List<Pokemon> filterdList) {
         pokemonsList=filterdList;
         notifyDataSetChanged();
@@ -79,15 +82,12 @@ public class ListPokemonAdapter extends Adapter<ListPokemonAdapter.ViewHolder>{
             pokemonNameField = itemView.findViewById(R.id.pokemon_name);
             pokemonImageField = itemView.findViewById(R.id.pokemon_image);
             pokemonNumberField= itemView.findViewById(R.id.pokemon_number);
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (mListener != null) {
-                        int position = getAdapterPosition();
-                   if(position != RecyclerView.NO_POSITION){
-                       mListener.onItemClick(position, pokemon.getNumber());
-                   }}
-                }
+            itemView.setOnClickListener(view -> {
+                if (mListener != null) {
+                    int position = getAdapterPosition();
+               if(position != RecyclerView.NO_POSITION){
+                   mListener.onItemClick(position, pokemon.getNumber());
+               }}
             });
         }
 
@@ -101,7 +101,8 @@ public class ListPokemonAdapter extends Adapter<ListPokemonAdapter.ViewHolder>{
                     .centerCrop()
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(pokemonImageField);
-            pokemonNumberField.setText(""+pokemon.getNumber());
+            String numberPokeText= ""+pokemon.getNumber();
+            pokemonNumberField.setText(numberPokeText);
         }
     }
 

@@ -1,5 +1,7 @@
 package br.com.primeit.pokedex.model;
 
+import androidx.annotation.NonNull;
+
 import java.util.List;
 
 public class PokemonDesc {
@@ -16,6 +18,7 @@ public class PokemonDesc {
         private String flavor_text;
         private Language language;
 
+        @NonNull
         @Override
         public String toString() {
             return flavor_text;
@@ -35,6 +38,7 @@ public class PokemonDesc {
     public class genera {
         private String genus;
 
+        @NonNull
         @Override
         public String toString() {
             return genus;
@@ -43,6 +47,7 @@ public class PokemonDesc {
 
     private List<genera> genera;
 
+    @NonNull
     @Override
     public String toString() {
         return "PokemonDesc{" +

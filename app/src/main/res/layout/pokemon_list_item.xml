@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/pressstart"
             android:textColor="@color/black2"
-            android:textSize="10sp"
+            android:textSize="11sp"
             android:layout_marginTop="4dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/pokemon_image"
@@ -49,7 +49,8 @@
             app:layout_constraintHorizontal_bias="0.188"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.0"
+            android:contentDescription="@string/pokemon_image" />
 
         <ImageView
             android:id="@+id/imageView"
@@ -61,7 +62,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.525"
-            app:srcCompat="@drawable/ic_chevron_right_fill1_wght100_grad_25_opsz24" />
+            app:srcCompat="@drawable/ic_chevron_right_fill1_wght100_grad_25_opsz24"
+            android:contentDescription="@string/icon_arrow_left" />
 
         <TextView
             android:id="@+id/pokemon_name"
@@ -69,7 +71,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:fontFamily="@font/pressstart"
-            android:text="Squirtle"
             android:textAlignment="center"
             android:textColor="@color/black2"
             android:textSize="14sp"

@@ -15,7 +15,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:paddingBottom="64dp">
 
             <View
@@ -43,7 +43,7 @@
                 app:layout_constraintVertical_bias="0.0"
 
                 app:shapeAppearance="@style/ShapeAppearance.MyApp.Card">
-                >
+
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -55,8 +55,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/pressstart"
-                        android:lineHeight="20sp"
-
                         android:textAlignment="center"
                         android:textColor="@color/white"
                         android:textSize="24sp"
@@ -68,6 +66,7 @@
 
                     <ImageView
                         android:id="@+id/PokeImageView"
+                        android:contentDescription="@string/description_image_poke"
                         android:layout_width="match_parent"
                         android:layout_height="175dp"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -75,8 +74,7 @@
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="1.0"
-                         />
+                        app:layout_constraintVertical_bias="1.0" />
 
                     <TextView
                         android:id="@+id/pokemon_number_field"
@@ -113,16 +111,16 @@
                     android:fontFamily="@font/montserrat_regular"
                     android:padding="16dp"
                     android:textAlignment="center"
-                    android:textSize="16dp" />
+                    android:textSize="16sp" />
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:layout_marginRight="8dp"
+                android:layout_marginEnd="8dp"
                 app:cardCornerRadius="10dp"
                 app:cardElevation="10dp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -141,12 +139,12 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/montserrat_light"
-                        android:text="Weight:"
+                        android:text="@string/weight"
                         android:textAlignment="center"
-                        android:textSize="14dp"
+                        android:textSize="14sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"></TextView>
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:id="@+id/editpeso"
@@ -168,9 +166,9 @@
                 android:id="@+id/cardView3"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
-                android:layout_marginRight="16dp"
+                android:layout_marginEnd="16dp"
                 app:cardCornerRadius="10dp"
                 app:cardElevation="10dp"
                 app:layout_constraintBottom_toBottomOf="@+id/cardView2"
@@ -190,12 +188,12 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/montserrat_light"
-                        android:text="Height:"
+                        android:text="@string/height"
                         android:textAlignment="center"
-                        android:textSize="14dp"
+                        android:textSize="14sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"></TextView>
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:id="@+id/editaltura"
@@ -242,8 +240,8 @@
                 android:layout_margin="8dp"
                 android:layout_marginTop="24dp"
                 android:fontFamily="@font/montserrat_light"
-                android:text="Types:"
-                android:textSize="20dp"
+                android:text="@string/types"
+                android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.498"
                 app:layout_constraintStart_toStartOf="parent"
@@ -271,13 +269,14 @@
                     android:id="@+id/firsttype"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:autoSizeMaxTextSize="100sp"
+                    android:autoSizeMinTextSize="12sp"
+                    android:autoSizeTextType="uniform"
                     android:fontFamily="@font/pressstart"
                     android:padding="16dp"
                     android:textAlignment="center"
                     android:textColor="@color/white"
-                    android:autoSizeTextType="uniform"
-                    android:autoSizeMinTextSize="12sp"
-                    android:autoSizeMaxTextSize="100sp" />
+                    tools:ignore="UnusedAttribute" />
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
@@ -296,13 +295,14 @@
 
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:autoSizeMaxTextSize="100sp"
+                    android:autoSizeMinTextSize="12sp"
+                    android:autoSizeTextType="uniform"
                     android:fontFamily="@font/pressstart"
                     android:padding="16dp"
                     android:textAlignment="center"
                     android:textColor="@color/white"
-                    android:autoSizeTextType="uniform"
-                    android:autoSizeMinTextSize="12sp"
-                    android:autoSizeMaxTextSize="100sp" />
+                    tools:ignore="UnusedAttribute" />
             </androidx.cardview.widget.CardView>
 
             <TextView
@@ -311,7 +311,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:fontFamily="@font/montserrat_bold"
-                android:text="Abilities:"
+                android:text="@string/abilities"
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
