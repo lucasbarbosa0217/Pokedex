@@ -108,7 +108,6 @@ public class PokemonInfoActivity extends AppCompatActivity {
             public void onResponse(@NonNull Call<PokemonInfo> call, @NonNull retrofit2.Response<PokemonInfo> response) {
                 if(response.isSuccessful()){
                     PokemonInfo info = response.body();
-                    Log.w("ARRRG", "onResponse: "+response.body());
                     pokemonsInfos= info;
                     assert pokemonsInfos != null;
                     setInfo(pokemonsInfos);

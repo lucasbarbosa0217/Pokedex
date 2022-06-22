@@ -65,8 +65,8 @@ public class ListPokemonAdapter extends Adapter<ListPokemonAdapter.ViewHolder>{
 
     }
     @SuppressLint("NotifyDataSetChanged")
-    public void filterList(List<Pokemon> filterdList) {
-        pokemonsList=filterdList;
+    public void filterList(List<Pokemon> filteredList) {
+        pokemonsList=filteredList;
         notifyDataSetChanged();
     }
 

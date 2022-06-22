@@ -1,5 +1,7 @@
 package br.com.primeit.pokedex.model.info;
 
+import androidx.annotation.NonNull;
+
 import java.util.List;
 import java.util.Locale;
 
@@ -70,6 +72,7 @@ public class PokemonInfo {
         private Type type;
 
 
+        @NonNull
         @Override
         public String toString() {
             return "Types{" +
@@ -88,6 +91,7 @@ public class PokemonInfo {
             private String name;
             private String url;
 
+            @NonNull
             @Override
             public String toString() {
                 return name;
@@ -108,6 +112,7 @@ public class PokemonInfo {
             private String name;
             private String url;
 
+            @NonNull
             @Override
             public String toString() {
 
@@ -117,12 +122,14 @@ public class PokemonInfo {
             }
         }
 
+        @NonNull
         @Override
         public String toString() {
             return ""+ability.toString();
         }
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "PokemonInfo{" +

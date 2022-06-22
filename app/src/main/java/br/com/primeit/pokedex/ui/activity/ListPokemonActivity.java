@@ -180,11 +180,13 @@ public class ListPokemonActivity extends AppCompatActivity {
                 intent.putExtra("pokemon", pokemon);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_out_bottom, R.anim.slide_in_bottom);
+
             }else{
                 Toast.makeText(ListPokemonActivity.this, "Erro de Conexão", Toast.LENGTH_SHORT).show();
+
             }
+            setTheme(R.style.Theme_Pokedex);
         });
-        setTheme(R.style.Theme_Pokedex);
 
     }
 
@@ -197,17 +199,17 @@ public class ListPokemonActivity extends AppCompatActivity {
     }
 
     private void filter(String text){
-        ArrayList<Pokemon> filterdList=new ArrayList<>();
+        ArrayList<Pokemon> filteredList=new ArrayList<>();
         if (pokemons!=null) {
             for (Pokemon p : pokemons) {
                 if (p.getName().toLowerCase().contains(text.toLowerCase())) {
-                    filterdList.add(p);
+                    filteredList.add(p);
                 }
             }
             if(text.equals("")){
                 tabLayout.selectTab(tab1);
             }
-            adapter.filterList(filterdList);
+            adapter.filterList(filteredList);
         }
     }
 
