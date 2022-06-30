@@ -198,12 +198,14 @@ public class PokemonInfoActivity extends AppCompatActivity {
     }
 
     private void setPokemonNumberField() {
+        TextView numberField = findViewById(R.id.pokemon_number_field);
+        numberField.setText("#"+numberPoke);
     }
 
     private void setPokemonImage(int numberPoke) {
         ImageView pokemonImageField = findViewById(R.id.PokeImageView);
         Glide.with(this)
-                .load("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/"+numberPoke+".png")
+                .load("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/"+numberPoke+".png")
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(pokemonImageField);
     }
