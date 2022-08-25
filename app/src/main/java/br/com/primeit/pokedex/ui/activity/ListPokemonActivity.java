@@ -7,6 +7,7 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -16,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
@@ -58,6 +60,15 @@ public class ListPokemonActivity extends AppCompatActivity {
         setReloadButton(fab);
         setSearchBar();
         setTabLayout(tab1);
+
+        FloatingActionButton openSaved = findViewById(R.id.openSavedAcitivy);
+        openSaved.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent savedIntent = new Intent(ListPokemonActivity.this, SavedListPokemonActivity.class);
+                startActivity(savedIntent);
+            }
+        });
     }
 
     private void setTabLayout(TabLayout.Tab tab1) {
@@ -168,7 +179,7 @@ public class ListPokemonActivity extends AppCompatActivity {
 
 
     public void configureRecyclerView(){
-        RecyclerView listPokemon = findViewById(R.id.activity_list_pokemon_lista);
+        RecyclerView listPokemon = findViewById(R.id.saved_recycler);
         listPokemon.setAdapter(adapter);
         listPokemon.setHasFixedSize(true);
         final GridLayoutManager layoutManager = new GridLayoutManager(this, 1);

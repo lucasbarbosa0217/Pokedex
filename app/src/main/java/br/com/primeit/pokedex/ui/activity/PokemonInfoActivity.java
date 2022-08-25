@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -20,13 +21,16 @@ import androidx.core.content.ContextCompat;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
 import br.com.primeit.pokedex.R;
 import br.com.primeit.pokedex.model.PokemonDesc;
+import br.com.primeit.pokedex.model.PokemonSalvo;
 import br.com.primeit.pokedex.model.info.PokemonInfo;
 import br.com.primeit.pokedex.retrofit.PokedexRetrofit;
 import br.com.primeit.pokedex.retrofit.service.PokemonService;
@@ -39,6 +43,7 @@ public class PokemonInfoActivity extends AppCompatActivity {
     public ProgressDialog dialog;
     public int numberPoke;
     public PokemonService service = new PokedexRetrofit().getPokemonService();
+    String generoString = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Intent intent = getIntent();
@@ -48,6 +53,31 @@ public class PokemonInfoActivity extends AppCompatActivity {
         setContentView(R.layout.pokemon_info_activity);
         Objects.requireNonNull(getSupportActionBar()).hide();
         searchDesc(numberPoke);
+
+        FloatingActionButton saveMon = findViewById(R.id.salvar);
+        saveMon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ArrayList<String> tipos = new ArrayList<String>();
+                tipos.add(pokemonsInfos.getTypes().get(1).getName());
+                if(pokemonsInfos.getTypes().size() > 1){
+                    tipos.add(pokemonsInfos.getTypes().get(2).getName());
+                }
+                PokemonSalvo pokemonSalvo = new PokemonSalvo();
+                pokemonSalvo.setNomePokemon(pokemonsInfos.getName());
+                pokemonSalvo.setNumeroPokemon(numberPoke);
+                pokemonSalvo.setAltura(pokemonsInfos.getHeight());
+                pokemonSalvo.setPeso(pokemonsInfos.getWeight());
+                pokemonSalvo.setAbilidades(pokemonsInfos.getAbilities().toString().replace("[", "").replace("]", ""));
+                pokemonSalvo.setTipos(tipos);
+                pokemonSalvo.setGenera(generoString);
+                pokemonSalvo.setUrlFotoGrande("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/"+numberPoke+".png");
+                pokemonSalvo.setUrlFotoPequena("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/"+numberPoke+".png");
+                pokemonSalvo.setDesc(pokemonSalvo.getDesc());
+
+
+            }
+        });
     }
 
     private void startLoadingScreen() {
@@ -88,7 +118,7 @@ public class PokemonInfoActivity extends AppCompatActivity {
     private void setInfoDesc(PokemonDesc description) {
         List<PokemonDesc.genera> listGen = description.getGenera();
         PokemonDesc.genera genero = listGen.get(7);
-        String generoString = "The "+ genero.toString();
+        generoString = "The "+ genero.toString();
         TextView genus = findViewById(R.id.genusText);
         genus.setText(generoString);
 
