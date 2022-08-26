@@ -4,11 +4,35 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+
 @Entity
 public class PokemonSalvo implements Serializable {
     @PrimaryKey(autoGenerate = true)
-    private int id = 0;
+    private long id;
+
+    @Override
+    public String toString() {
+        return "PokemonSalvo{" +
+                "id=" + id +
+                ", nomePokemon='" + nomePokemon + '\'' +
+                ", numeroPokemon=" + numeroPokemon +
+                ", urlFotoGrande='" + urlFotoGrande + '\'' +
+                ", urlFotoPequena='" + urlFotoPequena + '\'' +
+                ", desc='" + desc + '\'' +
+                ", abilidades='" + abilidades + '\'' +
+                ", genera='" + genera + '\'' +
+                ", tipos='" + tipos + '\'' +
+                ", altura='" + altura + '\'' +
+                ", peso='" + peso + '\'' +
+                '}';
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+
+
     private String nomePokemon;
     private int numeroPokemon;
     private String urlFotoGrande;
@@ -16,7 +40,7 @@ public class PokemonSalvo implements Serializable {
     private String desc;
     private String abilidades;
     private String genera;
-    private ArrayList<String> tipos;
+    private String tipos;
     private String altura;
     private String peso;
 
@@ -76,11 +100,11 @@ public class PokemonSalvo implements Serializable {
         this.genera = genera;
     }
 
-    public ArrayList<String> getTipos() {
+    public String getTipos() {
         return tipos;
     }
 
-    public void setTipos(ArrayList<String> tipos) {
+    public void setTipos(String tipos) {
         this.tipos = tipos;
     }
 

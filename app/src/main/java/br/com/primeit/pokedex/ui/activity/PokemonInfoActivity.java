@@ -2,6 +2,7 @@ package br.com.primeit.pokedex.ui.activity;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -29,6 +30,8 @@ import java.util.Locale;
 import java.util.Objects;
 
 import br.com.primeit.pokedex.R;
+import br.com.primeit.pokedex.database.PokemonDatabase;
+import br.com.primeit.pokedex.database.PokemonSalvoDao;
 import br.com.primeit.pokedex.model.PokemonDesc;
 import br.com.primeit.pokedex.model.PokemonSalvo;
 import br.com.primeit.pokedex.model.info.PokemonInfo;
@@ -40,12 +43,16 @@ import retrofit2.Response;
 
 public class PokemonInfoActivity extends AppCompatActivity {
     public PokemonInfo pokemonsInfos;
+    private Context context;
+    private SavedListPokemonView  listaPokemonView;
     public ProgressDialog dialog;
     public int numberPoke;
     public PokemonService service = new PokedexRetrofit().getPokemonService();
     String generoString = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        listaPokemonView = new SavedListPokemonView(this);
+
         Intent intent = getIntent();
         numberPoke = intent.getIntExtra("pokemon", 0);
         startLoadingScreen();
@@ -58,10 +65,10 @@ public class PokemonInfoActivity extends AppCompatActivity {
         saveMon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ArrayList<String> tipos = new ArrayList<String>();
-                tipos.add(pokemonsInfos.getTypes().get(1).getName());
+                String tipos = "";
+                tipos = (pokemonsInfos.getTypes().get(0).getName());
                 if(pokemonsInfos.getTypes().size() > 1){
-                    tipos.add(pokemonsInfos.getTypes().get(2).getName());
+                    tipos = tipos + ", "+ (pokemonsInfos.getTypes().get(1).getName());
                 }
                 PokemonSalvo pokemonSalvo = new PokemonSalvo();
                 pokemonSalvo.setNomePokemon(pokemonsInfos.getName());
@@ -74,8 +81,8 @@ public class PokemonInfoActivity extends AppCompatActivity {
                 pokemonSalvo.setUrlFotoGrande("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/"+numberPoke+".png");
                 pokemonSalvo.setUrlFotoPequena("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/"+numberPoke+".png");
                 pokemonSalvo.setDesc(pokemonSalvo.getDesc());
-
-
+                Log.w("POKE", "onClick: "+pokemonSalvo.toString() );
+                listaPokemonView.salvaMon(pokemonSalvo);
             }
         });
     }

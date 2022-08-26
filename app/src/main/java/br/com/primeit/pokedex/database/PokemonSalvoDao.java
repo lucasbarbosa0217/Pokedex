@@ -16,7 +16,7 @@ public interface PokemonSalvoDao {
     @Insert
     Long salva (PokemonSalvo pokemon);
 
-    @Query("SELECT * FROM pokemon")
+    @Query("SELECT * FROM pokemonsalvo")
     List<PokemonSalvo> todos();
 
     @Delete

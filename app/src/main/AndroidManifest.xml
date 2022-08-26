@@ -16,6 +16,9 @@
             android:name=".ui.activity.PokemonInfoActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.activity.SavedListPokemonActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.activity.ListPokemonActivity"
             android:exported="true">
             <intent-filter>

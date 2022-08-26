@@ -47,7 +47,7 @@
     </com.google.android.material.card.MaterialCardView>
 
 
-    <androidx.recyclerview.widget.RecyclerView
+    <ListView
         android:id="@+id/saved_recycler"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -64,7 +64,7 @@
         app:layout_constraintTop_toBottomOf="@+id/Card"
         tools:listitem="@layout/pokemon_list_item">
 
-    </androidx.recyclerview.widget.RecyclerView>
+    </ListView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

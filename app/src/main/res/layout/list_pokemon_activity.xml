@@ -193,7 +193,6 @@
         android:foregroundTint="@color/white2"
         android:foregroundTintMode="add"
         android:tint="@color/white"
-        app:backgroundTint="w"
         app:layout_constraintBottom_toTopOf="@+id/edittext"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"

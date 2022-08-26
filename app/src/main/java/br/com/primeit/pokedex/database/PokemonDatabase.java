@@ -15,7 +15,8 @@ public abstract class PokemonDatabase extends RoomDatabase {
     public abstract PokemonSalvoDao getPokemonDao();
 
     public static PokemonDatabase getInstance(Context context){
-        return (PokemonDatabase) Room.databaseBuilder(context, RoomDatabase.class, NOME_BANCO_DE_DADOS)
+        return Room
+                .databaseBuilder(context, PokemonDatabase.class, NOME_BANCO_DE_DADOS)
                 .build();
     }
 }
