@@ -46,21 +46,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardBackgroundColor="@color/red_pokedex"
-        app:shapeAppearance="@style/ShapeAppearance.MyApp.Card"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearance="@style/ShapeAppearance.MyApp.Card">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="16dp"
-           >
+            android:layout_marginTop="16dp">
 
             <TextView
 
-                android:id="@+id/textView5"
+                android:id="@+id/titleSaved"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -75,34 +74,37 @@
 
             <ImageButton
                 android:id="@+id/reloadList"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
                 android:layout_marginEnd="16dp"
                 android:background="@android:color/transparent"
-                app:tint="@color/white2"
-                app:layout_constraintBottom_toBottomOf="@+id/textView5"
+                android:contentDescription="@string/reload_icon"
+                android:src="@android:drawable/stat_sys_download"
+                app:layout_constraintBottom_toBottomOf="@+id/titleSaved"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.0"
-                app:srcCompat="@drawable/ic_restart_alt_fill1_wght100_grad_25_opsz40"
-                android:contentDescription="@string/reload_icon" />
+                app:tint="@color/white2" />
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tabLayout"
                 android:layout_width="0dp"
                 android:layout_height="55dp"
                 android:layout_marginTop="16dp"
+                android:background="@color/white"
                 android:overScrollMode="ifContentScrolls"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.497"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView5"
+                app:layout_constraintTop_toBottomOf="@+id/titleSaved"
+                app:tabIconTint="@color/red_pokedex"
                 app:tabIndicatorAnimationMode="elastic"
-                app:tabMode="scrollable">
+                app:tabIndicatorColor="@color/red_pokedex"
+                app:tabMode="scrollable"
+                app:tabTextColor="@color/black">
 
                 <com.google.android.material.tabs.TabItem
                     android:id="@+id/tabItem7"
@@ -164,25 +166,42 @@
 
     </com.google.android.material.card.MaterialCardView>
 
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/activity_list_pokemon_lista"
-        android:layout_width="0dp"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeContainer"
+        android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:padding="8dp"
-        android:scrollbarSize="2dp"
-        android:scrollbarStyle="insideInset"
-
-        android:scrollbars="none"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:clipToPadding="true"
         app:layout_constraintBottom_toTopOf="@+id/edittext"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Card"
-        tools:listitem="@layout/pokemon_list_item">
+        app:layout_constraintTop_toBottomOf="@+id/Card">
 
-    </androidx.recyclerview.widget.RecyclerView>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/saved_recycler"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="64dp"
+            android:padding="8dp"
+            android:scrollbarSize="2dp"
+
+            android:scrollbarStyle="insideInset"
+            android:scrollbars="none"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toTopOf="@+id/edittext"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Card"
+            tools:listitem="@layout/pokemon_list_item">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </ScrollView>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

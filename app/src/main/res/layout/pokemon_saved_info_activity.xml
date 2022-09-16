@@ -7,6 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white2"
+    tools:targetApi="lollipop"
     >
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -18,21 +19,14 @@
         android:clickable="true"
         app:backgroundTint="@color/red_pokedex"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/swipe"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/swipe"
-        app:layout_constraintTop_toTopOf="@+id/swipe"
-        app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@android:drawable/stat_sys_download" />
-
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/swipe"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/ic_close_fill1_wght100_grad_25_opsz24" />
+
+
 
         <ScrollView
             android:id="@+id/scrollView2"
@@ -82,9 +76,11 @@
 
                         <TextView
                             android:id="@+id/PokemonInfoName"
+                            android:fontFamily="@font/pressstart"
+
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/pressstart"
+
                             android:textAlignment="center"
                             android:textColor="@color/white"
                             android:textSize="24sp"
@@ -425,5 +421,5 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
 
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

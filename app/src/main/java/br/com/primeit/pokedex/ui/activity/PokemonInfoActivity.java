@@ -1,10 +1,23 @@
 package br.com.primeit.pokedex.ui.activity;
 
+import static android.content.ContentValues.TAG;
+
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.Image;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.os.Handler;
+import android.util.Base64;
 import android.util.Log;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -15,18 +28,31 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
 import br.com.primeit.pokedex.R;
+import br.com.primeit.pokedex.database.PokemonDatabase;
+import br.com.primeit.pokedex.database.PokemonSalvoDao;
 import br.com.primeit.pokedex.model.PokemonDesc;
+import br.com.primeit.pokedex.model.PokemonSalvo;
 import br.com.primeit.pokedex.model.info.PokemonInfo;
 import br.com.primeit.pokedex.retrofit.PokedexRetrofit;
 import br.com.primeit.pokedex.retrofit.service.PokemonService;
@@ -36,18 +62,118 @@ import retrofit2.Response;
 
 public class PokemonInfoActivity extends AppCompatActivity {
     public PokemonInfo pokemonsInfos;
+    private Context context;
+    private SavedListPokemonView  listaPokemonView;
     public ProgressDialog dialog;
     public int numberPoke;
+    private SwipeRefreshLayout swipeContainer;
+    private String flavorText = "";
     public PokemonService service = new PokedexRetrofit().getPokemonService();
+    String generoString = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        listaPokemonView = new SavedListPokemonView(this);
+        setContentView(R.layout.pokemon_info_activity);
+
+
         Intent intent = getIntent();
         numberPoke = intent.getIntExtra("pokemon", 0);
         startLoadingScreen();
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.pokemon_info_activity);
+
+        swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipe);
+        swipeContainer.setRefreshing(true);
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                searchDesc(numberPoke);
+
+            }
+        });
+
+
+
         Objects.requireNonNull(getSupportActionBar()).hide();
         searchDesc(numberPoke);
+
+        FloatingActionButton saveMon = findViewById(R.id.salvar);
+        saveMon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.setMessage("Saving Pokémon...");
+                dialog.show();
+                String tipos = "";
+                tipos = (pokemonsInfos.getTypes().get(0).getName());
+                if(pokemonsInfos.getTypes().size() > 1){
+                    tipos = tipos + ", "+ (pokemonsInfos.getTypes().get(1).getName());
+                }
+                PokemonSalvo pokemonSalvo = new PokemonSalvo();
+                pokemonSalvo.setNomePokemon(pokemonsInfos.getName());
+                pokemonSalvo.setNumeroPokemon(numberPoke);
+                pokemonSalvo.setAltura(pokemonsInfos.getHeight());
+                pokemonSalvo.setPeso(pokemonsInfos.getWeight());
+                pokemonSalvo.setAbilidades(pokemonsInfos.getAbilities().toString().replace("[", "").replace("]", ""));
+                pokemonSalvo.setTipos(tipos);
+                pokemonSalvo.setGenera(generoString);
+                pokemonSalvo.setUrlFotoGrande("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/"+numberPoke+".png");
+                pokemonSalvo.setUrlFotoPequena("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/"+numberPoke+".png");
+                pokemonSalvo.setDesc(flavorText);
+                Log.w("POKE", "onClick: "+pokemonSalvo.toString() );
+                listaPokemonView.salvaMon(pokemonSalvo);
+                ImageView teste= findViewById(R.id.PokeImageView);
+                ImageView tinyImage = findViewById(R.id.tinyImage);
+                teste.buildDrawingCache();
+                tinyImage.buildDrawingCache();;
+                Bitmap bitmap2 = tinyImage.getDrawingCache();
+                Bitmap bitmap = teste.getDrawingCache();
+                SaveImage(bitmap2, pokemonSalvo.getNumeroPokemon(), 1);
+                SaveImage(bitmap, pokemonSalvo.getNumeroPokemon(),2);
+
+            }
+        });
+    }
+
+
+    private void SaveImage(Bitmap finalBitmap, int number, int type) {
+
+        String root = Environment.getExternalStorageDirectory().toString();
+        File myDir = new File(getFilesDir(), "saved_pokemon");
+
+        myDir.mkdirs();
+        Log.w(TAG, "SaveImage: "+myDir.getAbsolutePath() );
+        String fname = "";
+        if(type==2){fname = "Image-"+ number +".png";}else{fname = "ImageTiny-"+ number +".png";}
+
+        File file = new File (myDir, fname);
+        if (file.exists ()) {
+            dialog.hide();
+            swipeContainer.setRefreshing(false);
+
+            Toast.makeText(PokemonInfoActivity.this, "Pokemon Already Saved", Toast.LENGTH_SHORT).show();
+            return;
+        };
+        try {
+            FileOutputStream out = new FileOutputStream(file);
+            finalBitmap.compress(Bitmap.CompressFormat.PNG, 90, out);
+            out.flush();
+            out.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally{
+            final Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(PokemonInfoActivity.this, "Pokémon Saved", Toast.LENGTH_SHORT).show();
+                    dialog.hide();
+                    swipeContainer.setRefreshing(false);
+
+
+                }
+            }, 1000);
+
+        }
     }
 
     private void startLoadingScreen() {
@@ -88,13 +214,13 @@ public class PokemonInfoActivity extends AppCompatActivity {
     private void setInfoDesc(PokemonDesc description) {
         List<PokemonDesc.genera> listGen = description.getGenera();
         PokemonDesc.genera genero = listGen.get(7);
-        String generoString = "The "+ genero.toString();
+        generoString = "The "+ genero.toString();
         TextView genus = findViewById(R.id.genusText);
         genus.setText(generoString);
 
         PokemonDesc.flavor_text flavor = description.getFirstEnglishEntry();
         TextView descText = findViewById(R.id.descText);
-        String flavorText = flavor.toString().replace("\n", " ");
+       flavorText = flavor.toString().replace("\n", " ");
         descText.setText(flavorText);
 
     }
@@ -116,6 +242,7 @@ public class PokemonInfoActivity extends AppCompatActivity {
                     finish();
                 }
                 dialog.hide();
+                swipeContainer.setRefreshing(false);
             }
 
             @Override
@@ -204,10 +331,16 @@ public class PokemonInfoActivity extends AppCompatActivity {
 
     private void setPokemonImage(int numberPoke) {
         ImageView pokemonImageField = findViewById(R.id.PokeImageView);
+        ImageView tinyImage = findViewById(R.id.tinyImage);
         Glide.with(this)
                 .load("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/"+numberPoke+".png")
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(pokemonImageField);
+
+        Glide.with(this)
+                .load("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/"+numberPoke+".png")
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(tinyImage);
     }
 
     private Long chooseColor(String nomeTipo) {
@@ -238,6 +371,31 @@ public class PokemonInfoActivity extends AppCompatActivity {
     }
 
 
+    public  boolean isStoragePermissionGranted() {
+        String TAG = "perm";
+        if (Build.VERSION.SDK_INT >= 23) {
+            if (checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    == PackageManager.PERMISSION_GRANTED) {
+                Log.v(TAG,"Permission is granted");
+                return true;
+            } else {
 
+                Log.v(TAG,"Permission is revoked");
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 2);
+                return false;
+            }
+        }
+        else { //permission is automatically granted on sdk<23 upon installation
+            Log.v(TAG,"Permission is granted");
+            return true;
+        }
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        dialog.hide();
+        super.onDestroy();
+    }
 }
 

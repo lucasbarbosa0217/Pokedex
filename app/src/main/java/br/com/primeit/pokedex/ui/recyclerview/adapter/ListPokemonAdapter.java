@@ -70,6 +70,13 @@ public class ListPokemonAdapter extends Adapter<ListPokemonAdapter.ViewHolder>{
         notifyDataSetChanged();
     }
 
+    public void clear() {
+        pokemonsList.clear();
+        notifyDataSetChanged();
+    }
+
+
+
 
 
     class ViewHolder extends RecyclerView.ViewHolder{
@@ -85,7 +92,7 @@ public class ListPokemonAdapter extends Adapter<ListPokemonAdapter.ViewHolder>{
             itemView.setOnClickListener(view -> {
                 if (mListener != null) {
                     int position = getAdapterPosition();
-               if(position != RecyclerView.NO_POSITION){
+               if(position != RecyclerView.NO_POSITION && pokemon.getNumberReal() !=1404){
                    mListener.onItemClick(position, pokemon.getNumber());
                }}
             });
@@ -96,13 +103,23 @@ public class ListPokemonAdapter extends Adapter<ListPokemonAdapter.ViewHolder>{
             String name = pokemon.getName();
             String nameCap = name.substring(0,1).toUpperCase(Locale.ROOT) + name.substring(1);
             pokemonNameField.setText(nameCap);
+            if(pokemon.getNumberReal() != 1404){
             Glide.with(context)
                     .load("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/"+pokemon.getNumber()+".png")
                     .centerCrop()
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(pokemonImageField);
             String numberPokeText= ""+pokemon.getNumber();
-            pokemonNumberField.setText(numberPokeText);
+            pokemonNumberField.setText(numberPokeText);}
+            else{
+                Glide.with(context)
+                        .load(pokemon.getUrl())
+                        .centerCrop()
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .into(pokemonImageField);
+                String numberPokeText= ""+(pokemon.getNumberReal()-1004);
+                pokemonNumberField.setText(numberPokeText);
+            }
         }
     }
 

@@ -41,16 +41,16 @@
 
         <ImageView
             android:id="@+id/pokemon_image"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_marginTop="4dp"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:contentDescription="@string/pokemon_image"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.188"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
-            android:contentDescription="@string/pokemon_image" />
+            app:layout_constraintVertical_bias="0.0" />
 
         <ImageView
             android:id="@+id/imageView"
@@ -73,12 +73,12 @@
             android:fontFamily="@font/pressstart"
             android:textAlignment="center"
             android:textColor="@color/black2"
-            android:textSize="14sp"
+            android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/imageView"
             app:layout_constraintStart_toEndOf="@+id/pokemon_image"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.53"
+            app:layout_constraintVertical_bias="0.50"
             tools:text="Bulbassauro" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,9 +6,13 @@
         <entry key="..\:/Desktop/AndroidPokedex/Pokedex/app/src/main/res/drawable/circle.xml" value="0.1" />
         <entry key="..\:/Desktop/AndroidPokedex/Pokedex/app/src/main/res/drawable/splash_bg.xml" value="0.1" />
         <entry key="..\:/Desktop/AndroidPokedex/Pokedex/app/src/main/res/layout-v26/pokemon_info_activity.xml" value="0.1375" />
-        <entry key="..\:/Desktop/AndroidPokedex/Pokedex/app/src/main/res/layout/list_pokemon_activity.xml" value="0.14" />
-        <entry key="..\:/Desktop/AndroidPokedex/Pokedex/app/src/main/res/layout/pokemon_info_activity.xml" value="0.5" />
-        <entry key="..\:/Desktop/AndroidPokedex/Pokedex/app/src/main/res/layout/pokemon_list_item.xml" value="0.11286874732791792" />
+        <entry key="..\:/Desktop/AndroidPokedex/Pokedex/app/src/main/res/layout/list_pokemon_activity.xml" value="0.22" />
+        <entry key="..\:/Desktop/AndroidPokedex/Pokedex/app/src/main/res/layout/pokemon_info_activity.xml" value="0.25" />
+        <entry key="..\:/Desktop/AndroidPokedex/Pokedex/app/src/main/res/layout/pokemon_list_item.xml" value="0.25" />
+        <entry key="..\:/Desktop/AndroidPokedex/Pokedex/app/src/main/res/layout/pokemon_list_saved_item.xml" value="0.33" />
+        <entry key="..\:/Desktop/AndroidPokedex/Pokedex/app/src/main/res/layout/pokemon_saved_info_activity.xml" value="0.23541666666666666" />
+        <entry key="..\:/Desktop/AndroidPokedex/Pokedex/app/src/main/res/layout/saved_list_pokemon_activity.xml" value="0.23541666666666666" />
+        <entry key="..\:/Desktop/AndroidPokedex/Pokedex/app/src/main/res/menu/menu_delete.xml" value="0.23541666666666666" />
         <entry key="..\:/Desktop/AndroidPokedex/Pokedex/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.198" />
         <entry key="..\:/Desktop/Pokedex/app/src/main/res/layout/activity_search_activy.xml" value="0.23899102180418982" />
         <entry key="..\:/Desktop/Pokedex/app/src/main/res/layout/list_pokemon_activity.xml" value="0.19199999334161955" />
@@ -31,9 +35,10 @@
         <entry key="..\:/Users/lucassb/Documents/GitHub/Pokedex/app/src/main/res/drawable/ic_restart_alt_fill1_wght100_grad_25_opsz40.xml" value="0.1105" />
         <entry key="..\:/Users/lucassb/Documents/GitHub/Pokedex/app/src/main/res/drawable/ic_search_fill1_wght100_grad_25_opsz40.xml" value="0.1105" />
         <entry key="..\:/Users/lucassb/Documents/GitHub/Pokedex/app/src/main/res/drawable/splash_bg.xml" value="0.1105" />
-        <entry key="..\:/Users/lucassb/Documents/GitHub/Pokedex/app/src/main/res/layout/list_pokemon_activity.xml" value="0.1" />
-        <entry key="..\:/Users/lucassb/Documents/GitHub/Pokedex/app/src/main/res/layout/pokemon_info_activity.xml" value="0.1" />
+        <entry key="..\:/Users/lucassb/Documents/GitHub/Pokedex/app/src/main/res/layout/list_pokemon_activity.xml" value="0.264" />
+        <entry key="..\:/Users/lucassb/Documents/GitHub/Pokedex/app/src/main/res/layout/pokemon_info_activity.xml" value="0.2" />
         <entry key="..\:/Users/lucassb/Documents/GitHub/Pokedex/app/src/main/res/layout/pokemon_list_item.xml" value="0.1" />
+        <entry key="..\:/Users/lucassb/Documents/GitHub/Pokedex/app/src/main/res/layout/saved_list_pokemon_activity.xml" value="0.256140350877193" />
       </map>
     </option>
   </component>
