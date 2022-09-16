@@ -51,10 +51,12 @@
         android:id="@+id/saved_recycler"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:padding="8dp"
+        android:divider="@color/white2"
+        android:dividerHeight="16dp"
+
+        android:padding="16dp"
         android:scrollbarSize="2dp"
         android:scrollbarStyle="insideInset"
-
         android:scrollbars="none"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"

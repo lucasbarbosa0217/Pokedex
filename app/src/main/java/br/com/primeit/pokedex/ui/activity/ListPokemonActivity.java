@@ -7,6 +7,8 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -14,8 +16,10 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
@@ -36,17 +40,35 @@ public class ListPokemonActivity extends AppCompatActivity {
     private final ListPokemonAdapter adapter = new ListPokemonAdapter(this);
     private int offset;
     private int limit;
-    private ArrayList<Pokemon> pokemons;
+    private static ArrayList<Pokemon> pokemons;
     private EditText searchEditText;
-    public ProgressDialog dialog;
     public TabLayout tabLayout;
     public TabLayout.Tab tab1;
+    private SwipeRefreshLayout swipeContainer;
+    private Pokemon erroConexao = new Pokemon();
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list_pokemon_activity);
        setTheme(R.style.Theme_Splash);
+        pokemons = new ArrayList<>();
+        erroConexao = new Pokemon();
+        erroConexao.setName("Conection error");
+        erroConexao.setNumber(1404);
+        erroConexao.setUrl("https://cdn3.iconfinder.com/data/icons/wifi-2/460/connection-error-512.png");
+
+        swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
+        swipeContainer.setRefreshing(true);
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+               searchPokemon(limit, offset);
+
+            }
+        });
 
         Objects.requireNonNull(getSupportActionBar()).hide();
         offset = 0;
@@ -60,15 +82,6 @@ public class ListPokemonActivity extends AppCompatActivity {
         setReloadButton(fab);
         setSearchBar();
         setTabLayout(tab1);
-
-        FloatingActionButton openSaved = findViewById(R.id.openSavedAcitivy);
-        openSaved.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent savedIntent = new Intent(ListPokemonActivity.this, SavedListPokemonActivity.class);
-                startActivity(savedIntent);
-            }
-        });
     }
 
     private void setTabLayout(TabLayout.Tab tab1) {
@@ -129,19 +142,12 @@ public class ListPokemonActivity extends AppCompatActivity {
 
     private void setReloadButton(ImageButton fab) {
         fab.setOnClickListener(view -> {
-
-            StartLoadingScreen();
-            searchPokemon(limit, offset);
+            Intent savedIntent = new Intent(ListPokemonActivity.this, SavedListPokemonActivity.class);
+            startActivity(savedIntent);
         });
     }
 
-    private void StartLoadingScreen() {
-        dialog = new ProgressDialog(ListPokemonActivity.this);
-        dialog.setMessage("Loading data...");
-        dialog.setCancelable(false);
-        dialog.setInverseBackgroundForced(false);
-        dialog.show();
-    }
+
 
 
     public void searchPokemon(int limit, int offset){
@@ -154,24 +160,26 @@ public class ListPokemonActivity extends AppCompatActivity {
                 if (response.isSuccessful()){
                     ResponsePokemon resposta = response.body();
                     assert resposta != null;
+                    pokemons.clear();
                     pokemons = resposta.getResults();
+                    adapter.clear();
                     adapter.update(pokemons);
                     configureRecyclerView();
                 }else{
                     Toast.makeText(ListPokemonActivity.this, "Erro de Conexão", Toast.LENGTH_SHORT).show();
                 }
-                if(dialog != null){
-                if(dialog.isShowing()){
-                    dialog.hide();
-                }}
+                swipeContainer.setRefreshing(false);
             }
             @Override
             public void onFailure(@NonNull Call<ResponsePokemon> call, @NonNull Throwable t) {
+                if(pokemons.size()<200){
+                pokemons.clear();
+                pokemons.add(erroConexao);
+                adapter.clear();
+                adapter.update(pokemons);
+                configureRecyclerView();}
                 Toast.makeText(ListPokemonActivity.this, "Erro De Conexão", Toast.LENGTH_SHORT).show();
-                if(dialog != null){
-                    if(dialog.isShowing()){
-                        dialog.hide();
-                    }}
+                swipeContainer.setRefreshing(false);
             }
         });
     }
@@ -183,7 +191,7 @@ public class ListPokemonActivity extends AppCompatActivity {
         listPokemon.setAdapter(adapter);
         listPokemon.setHasFixedSize(true);
         final GridLayoutManager layoutManager = new GridLayoutManager(this, 1);
-        listPokemon.setLayoutManager(layoutManager);
+            listPokemon.setLayoutManager(layoutManager);
         adapter.setOnItemClickListener((position, pokemon) -> {
 
             if (hasConnectivity()) {
@@ -206,7 +214,13 @@ public class ListPokemonActivity extends AppCompatActivity {
         ConnectivityManager connectivityManager = (ConnectivityManager)
                 this.getSystemService(CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = connectivityManager.getActiveNetworkInfo();
-        return activeNetwork != null;
+        boolean isPoke = true;
+        if( pokemons.size() < 100){
+            isPoke = false;
+        }
+        if(activeNetwork != null & isPoke){return true;}
+        else{return false;}
+
     }
 
     private void filter(String text){
@@ -227,8 +241,12 @@ public class ListPokemonActivity extends AppCompatActivity {
     @Override
     protected void onRestart() {
         super.onRestart();
-        adapter.update(pokemons);
+        if(pokemons!=null){
+        adapter.update(pokemons);}
         searchEditText.setText("");
     }
+
+
+
 
 }

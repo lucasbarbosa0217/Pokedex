@@ -13,6 +13,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import org.w3c.dom.Text;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,6 +31,8 @@ public class PokemonSalvoAdapter extends BaseAdapter {
         this.context = context;
         dao = PokemonDatabase.getInstance(context).getPokemonDao();
     }
+
+
 
 
     @Override
@@ -60,8 +63,10 @@ public class PokemonSalvoAdapter extends BaseAdapter {
         TextView nomePokemon = view.findViewById(R.id.pokemon_name);
         TextView numberPokemon = view.findViewById(R.id.pokemon_number);
         ImageView imagePokemon = view.findViewById(R.id.pokemon_image);
+        File myDir = new File(context.getFilesDir()  + "/saved_pokemon/ImageTiny-"+pokemon.getNumeroPokemon()+".png").getAbsoluteFile();
+
         Glide.with(context)
-                .load(pokemon.getUrlFotoPequena())
+                .load(myDir)
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(imagePokemon);
