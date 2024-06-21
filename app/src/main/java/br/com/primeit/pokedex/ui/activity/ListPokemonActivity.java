@@ -238,9 +238,6 @@ public class ListPokemonActivity extends AppCompatActivity {
                     filteredList.add(p);
                 }
             }
-            if(text.equals("")){
-                tabLayout.selectTab(tab1);
-            }
             adapter.filterList(filteredList);
         }
     }
@@ -248,43 +245,9 @@ public class ListPokemonActivity extends AppCompatActivity {
     @Override
     protected void onRestart() {
         super.onRestart();
-        if(pokemons!=null){
-        adapter.update(pokemons);}
-        searchEditText.setText("");
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (canResume) {
-            Toast.makeText(ListPokemonActivity.this, ""+tabSelecionada, Toast.LENGTH_SHORT).show();
 
-            switch(tabSelecionada) {
-                case 0: searchEditText.setText("");adapter.filterList(pokemons.subList(0,898));break;
-                case 1: searchEditText.setText("");adapter.filterList(pokemons.subList(0,151));break;
-                case 2: searchEditText.setText("");adapter.filterList(pokemons.subList(151,251));break;
-                case 3: searchEditText.setText("");adapter.filterList(pokemons.subList(251,386));break;
-                case 4: searchEditText.setText("");adapter.filterList(pokemons.subList(386,493));break;
-                case 5: searchEditText.setText("");adapter.filterList(pokemons.subList(493,649));break;
-                case 6: searchEditText.setText("");adapter.filterList(pokemons.subList(649,721));break;
-                case 7: searchEditText.setText("");adapter.filterList(pokemons.subList(721,809));break;
-                case 8: searchEditText.setText("");adapter.filterList(pokemons.subList(809,898));break;
-                case 9: searchEditText.setText("");adapter.filterList(pokemons.subList(898,905));break;
-                case 10: searchEditText.setText("");adapter.filterList(pokemons.subList(905,1024));break;
-
-
-            }
-        }
-    }
-
-    @Override
-    protected void onPause() {
-        tabSelecionada = tabLayout.getSelectedTabPosition();
-
-        super.onPause();
-    }
-
-    int tabSelecionada = 0;
 }
 
 
