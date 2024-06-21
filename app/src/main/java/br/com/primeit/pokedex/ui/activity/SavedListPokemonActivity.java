@@ -47,9 +47,7 @@ public class SavedListPokemonActivity extends AppCompatActivity {
         listaPokemonView.setOnItemClickListener((adapterView, view, i, l) -> {
             PokemonSalvo pokemonSalvo = (PokemonSalvo) adapterView.getItemAtPosition(i);
             Intent intent = new Intent(SavedListPokemonActivity.this, SavedInfoActivity.class);
-
             intent.putExtra("pokemon", pokemonSalvo);
-
             startActivity(intent);
         });
     }
