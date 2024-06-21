@@ -57,7 +57,7 @@ public class ListPokemonActivity extends AppCompatActivity {
        setTheme(R.style.Theme_Splash);
         pokemons = new ArrayList<>();
         erroConexao = new Pokemon();
-        erroConexao.setName("Conection error");
+        erroConexao.setName("Connection error");
         erroConexao.setNumber(1404);
         erroConexao.setUrl("https://cdn3.iconfinder.com/data/icons/wifi-2/460/connection-error-512.png");
 
@@ -66,6 +66,8 @@ public class ListPokemonActivity extends AppCompatActivity {
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                TabLayout.Tab tab1 = tabLayout.getTabAt(0);
+                tabLayout.selectTab(tab1);
                searchPokemon(limit, offset);
 
             }
@@ -166,7 +168,6 @@ public class ListPokemonActivity extends AppCompatActivity {
                 if (response.isSuccessful()){
                     ResponsePokemon resposta = response.body();
                     assert resposta != null;
-                    pokemons.clear();
                     pokemons = resposta.getResults();
                     adapter.clear();
                     adapter.update(pokemons);

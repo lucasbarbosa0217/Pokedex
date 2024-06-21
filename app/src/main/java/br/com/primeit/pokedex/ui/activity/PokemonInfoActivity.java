@@ -297,6 +297,7 @@ public class PokemonInfoActivity extends AppCompatActivity {
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.setStatusBarColor((int) colorTipo1);
 
+
         pokemonFirstType.setText(nomeTipo1.substring(0,1).toUpperCase(Locale.ROOT) + nomeTipo1.substring(1));
 
         if(listTypes.size() > 1){
@@ -310,8 +311,11 @@ public class PokemonInfoActivity extends AppCompatActivity {
 
         }
         else{
-            ConstraintLayout pai = (ConstraintLayout) fundoTipo2.getParent();
-            pai.removeView(fundoTipo2);
+            if(fundoTipo2 != null){
+                ConstraintLayout pai = (ConstraintLayout) fundoTipo2.getParent();
+                pai.removeView(fundoTipo2);
+            }
+
             fundoTipo1.requestLayout();
             fundoTipo1.getLayoutParams().width = ConstraintLayout.LayoutParams.MATCH_PARENT;
         }
