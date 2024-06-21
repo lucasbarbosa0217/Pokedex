@@ -159,6 +159,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/galar" />
+                <com.google.android.material.tabs.TabItem
+                    android:id="@+id/tabItem16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Hisui" />
+                <com.google.android.material.tabs.TabItem
+                    android:id="@+id/tabItem17"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Paldea" />
             </com.google.android.material.tabs.TabLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

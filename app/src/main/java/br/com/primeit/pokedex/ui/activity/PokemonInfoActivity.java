@@ -162,16 +162,11 @@ public class PokemonInfoActivity extends AppCompatActivity {
             e.printStackTrace();
         }finally{
             final Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    Toast.makeText(PokemonInfoActivity.this, "Pokémon Saved", Toast.LENGTH_SHORT).show();
-                    dialog.hide();
-                    swipeContainer.setRefreshing(false);
 
+                Toast.makeText(PokemonInfoActivity.this, "Pokémon Saved", Toast.LENGTH_SHORT).show();
+                dialog.hide();
+                swipeContainer.setRefreshing(false);
 
-                }
-            }, 1000);
 
         }
     }
@@ -192,7 +187,6 @@ public class PokemonInfoActivity extends AppCompatActivity {
             public void onResponse(@NonNull Call<PokemonDesc> call, @NonNull Response<PokemonDesc> response) {
                 if(response.isSuccessful()){
                     PokemonDesc description = response.body();
-                    assert description != null;
                     setInfoDesc(description);
                     searchPokeInfo(numberPoke);
 
@@ -213,7 +207,19 @@ public class PokemonInfoActivity extends AppCompatActivity {
 
     private void setInfoDesc(PokemonDesc description) {
         List<PokemonDesc.genera> listGen = description.getGenera();
-        PokemonDesc.genera genero = listGen.get(7);
+        PokemonDesc.genera genero = null;
+
+        if(numberPoke > 898 && numberPoke < 906){
+            genero = listGen.get(5);
+        }else{
+            try{
+                genero = listGen.get(7);
+            }catch(IndexOutOfBoundsException e){
+                genero = listGen.get(2);
+            }
+        }
+
+
         generoString = "The "+ genero.toString();
         TextView genus = findViewById(R.id.genusText);
         genus.setText(generoString);

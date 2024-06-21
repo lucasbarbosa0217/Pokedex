@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Menu;
@@ -42,12 +43,12 @@ public class ListPokemonActivity extends AppCompatActivity {
     private int limit;
     private static ArrayList<Pokemon> pokemons;
     private EditText searchEditText;
-    public TabLayout tabLayout;
+    private TabLayout tabLayout;
     public TabLayout.Tab tab1;
     private SwipeRefreshLayout swipeContainer;
     private Pokemon erroConexao = new Pokemon();
 
-
+    private boolean canResume = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,19 +73,22 @@ public class ListPokemonActivity extends AppCompatActivity {
 
         Objects.requireNonNull(getSupportActionBar()).hide();
         offset = 0;
-        limit = 898;
+        limit = 1025;
+
+
         searchPokemon(limit, offset);
-        tabLayout = findViewById(R.id.tabLayout);
+
+        tabLayout =findViewById(R.id.tabLayout);
         TabLayout.Tab tab1 = tabLayout.getTabAt(0);
         ImageButton deleteText = findViewById(R.id.deleteText);
         deleteText.setOnClickListener(view -> searchEditText.setText(""));
         ImageButton fab = findViewById(R.id.reloadList);
         setReloadButton(fab);
         setSearchBar();
-        setTabLayout(tab1);
+        setTabLayout(tabLayout);
     }
 
-    private void setTabLayout(TabLayout.Tab tab1) {
+    private void setTabLayout(TabLayout tab) {
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -99,6 +103,8 @@ public class ListPokemonActivity extends AppCompatActivity {
                     case 6: searchEditText.setText("");adapter.filterList(pokemons.subList(649,721));break;
                     case 7: searchEditText.setText("");adapter.filterList(pokemons.subList(721,809));break;
                     case 8: searchEditText.setText("");adapter.filterList(pokemons.subList(809,898));break;
+                    case 9: searchEditText.setText("");adapter.filterList(pokemons.subList(898,905));break;
+                    case 10: searchEditText.setText("");adapter.filterList(pokemons.subList(905,1024));break;
 
 
                 }}else{
@@ -165,6 +171,7 @@ public class ListPokemonActivity extends AppCompatActivity {
                     adapter.clear();
                     adapter.update(pokemons);
                     configureRecyclerView();
+                    canResume = true;
                 }else{
                     Toast.makeText(ListPokemonActivity.this, "Erro de Conexão", Toast.LENGTH_SHORT).show();
                 }
@@ -246,7 +253,39 @@ public class ListPokemonActivity extends AppCompatActivity {
         searchEditText.setText("");
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (canResume) {
+            Toast.makeText(ListPokemonActivity.this, ""+tabSelecionada, Toast.LENGTH_SHORT).show();
+
+            switch(tabSelecionada) {
+                case 0: searchEditText.setText("");adapter.filterList(pokemons.subList(0,898));break;
+                case 1: searchEditText.setText("");adapter.filterList(pokemons.subList(0,151));break;
+                case 2: searchEditText.setText("");adapter.filterList(pokemons.subList(151,251));break;
+                case 3: searchEditText.setText("");adapter.filterList(pokemons.subList(251,386));break;
+                case 4: searchEditText.setText("");adapter.filterList(pokemons.subList(386,493));break;
+                case 5: searchEditText.setText("");adapter.filterList(pokemons.subList(493,649));break;
+                case 6: searchEditText.setText("");adapter.filterList(pokemons.subList(649,721));break;
+                case 7: searchEditText.setText("");adapter.filterList(pokemons.subList(721,809));break;
+                case 8: searchEditText.setText("");adapter.filterList(pokemons.subList(809,898));break;
+                case 9: searchEditText.setText("");adapter.filterList(pokemons.subList(898,905));break;
+                case 10: searchEditText.setText("");adapter.filterList(pokemons.subList(905,1024));break;
 
 
+            }
+        }
+    }
 
+    @Override
+    protected void onPause() {
+        tabSelecionada = tabLayout.getSelectedTabPosition();
+
+        super.onPause();
+    }
+
+    int tabSelecionada = 0;
 }
+
+
+
