@@ -1,4 +1,4 @@
-# PokeDex Android App - Java
+S# PokeDex Android App - Java
 
 ## Descrição do Projeto
 
