@@ -54,7 +54,10 @@ public class ListPokemonActivity extends AppCompatActivity {
         setSwipeRefreshLayout();
         setTabLayout();
         ImageButton deleteText = findViewById(R.id.deleteText);
-        deleteText.setOnClickListener(view -> searchEditText.setText(""));
+        deleteText.setOnClickListener(view -> {
+            tabLayout.selectTab(tabLayout.getTabAt(0));
+            searchEditText.setText("");
+        });
         setReloadButton();
         setSearchBar();
 
