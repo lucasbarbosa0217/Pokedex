@@ -38,6 +38,7 @@ public class PokemonDesc {
     public class genera {
         private String genus;
 
+        private Language language;
         @NonNull
         @Override
         public String toString() {
@@ -63,5 +64,14 @@ public class PokemonDesc {
             }
         }
     return null;
+    }
+
+    public genera getFirstEnglishGenera(){
+        for (genera g : genera) {
+            if(g.language.getL().equals("en")){
+                return g;
+            }
+        }
+        return null;
     }
 }

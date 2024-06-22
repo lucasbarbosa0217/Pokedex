@@ -1,4 +1,4 @@
-package br.com.primeit.pokedex.model.info;
+package br.com.primeit.pokedex.model;
 
 import androidx.annotation.NonNull;
 
@@ -18,7 +18,7 @@ public class PokemonInfo {
     }
 
     public String getHeight() {
-        return ""+height;
+        return "" + height;
     }
 
     public void setHeight(int height) {
@@ -42,7 +42,7 @@ public class PokemonInfo {
     }
 
     public String getWeight() {
-        return ""+weight;
+        return "" + weight;
     }
 
     public void setWeight(int weight) {
@@ -54,13 +54,12 @@ public class PokemonInfo {
     }
 
 
-
     public void setTypes(List<Types> types) {
         this.types = types;
     }
 
     public String getName() {
-        return name.substring(0,1).toUpperCase(Locale.ROOT) + name.substring(1);
+        return name.substring(0, 1).toUpperCase(Locale.ROOT) + name.substring(1);
     }
 
     public void setName(String name) {
@@ -75,16 +74,12 @@ public class PokemonInfo {
         @NonNull
         @Override
         public String toString() {
-            return "Types{" +
-                    "slot=" + slot +
-                    ", type=" + type +
-                    '}';
+            return "Types{" + "slot=" + slot + ", type=" + type + '}';
         }
 
         public String getName() {
             return type.toString();
         }
-
 
 
         private class Type {
@@ -107,7 +102,6 @@ public class PokemonInfo {
         private AbilityInfo ability;
 
 
-
         private class AbilityInfo {
             private String name;
             private String url;
@@ -116,7 +110,7 @@ public class PokemonInfo {
             @Override
             public String toString() {
 
-                String nameUpCase = name.substring(0,1).toUpperCase(Locale.ROOT) + name.substring(1);
+                String nameUpCase = name.substring(0, 1).toUpperCase(Locale.ROOT) + name.substring(1);
                 String nameSpaced = nameUpCase.replace('-', ' ');
                 return nameSpaced;
             }
@@ -125,20 +119,13 @@ public class PokemonInfo {
         @NonNull
         @Override
         public String toString() {
-            return ""+ability.toString();
+            return "" + ability.toString();
         }
     }
 
     @NonNull
     @Override
     public String toString() {
-        return "PokemonInfo{" +
-                "height=" + height +
-                ", abilities=" + abilities +
-                ", id=" + id +
-                ", weight=" + weight +
-                ", types=" + types +
-                ", name='" + name + '\'' +
-                '}';
+        return "PokemonInfo{" + "height=" + height + ", abilities=" + abilities + ", id=" + id + ", weight=" + weight + ", types=" + types + ", name='" + name + '\'' + '}';
     }
 }

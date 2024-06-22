@@ -9,13 +9,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.media.Image;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
-import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -39,21 +36,14 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
 import br.com.primeit.pokedex.R;
-import br.com.primeit.pokedex.database.PokemonDatabase;
-import br.com.primeit.pokedex.database.PokemonSalvoDao;
 import br.com.primeit.pokedex.model.PokemonDesc;
 import br.com.primeit.pokedex.model.PokemonSalvo;
-import br.com.primeit.pokedex.model.info.PokemonInfo;
+import br.com.primeit.pokedex.model.PokemonInfo;
 import br.com.primeit.pokedex.retrofit.PokedexRetrofit;
 import br.com.primeit.pokedex.retrofit.service.PokemonService;
 import retrofit2.Call;
@@ -206,24 +196,10 @@ public class PokemonInfoActivity extends AppCompatActivity {
     }
 
     private void setInfoDesc(PokemonDesc description) {
-        List<PokemonDesc.genera> listGen = description.getGenera();
-        PokemonDesc.genera genero = null;
-
-        if(numberPoke > 898 && numberPoke < 906){
-            genero = listGen.get(5);
-        }else{
-            try{
-                genero = listGen.get(7);
-            }catch(IndexOutOfBoundsException e){
-                genero = listGen.get(2);
-            }
-        }
-
-
+        PokemonDesc.genera genero = description.getFirstEnglishGenera();
         generoString = "The "+ genero.toString();
         TextView genus = findViewById(R.id.genusText);
         genus.setText(generoString);
-
         PokemonDesc.flavor_text flavor = description.getFirstEnglishEntry();
         TextView descText = findViewById(R.id.descText);
        flavorText = flavor.toString().replace("\n", " ");

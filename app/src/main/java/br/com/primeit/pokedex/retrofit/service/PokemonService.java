@@ -2,7 +2,7 @@ package br.com.primeit.pokedex.retrofit.service;
 
 import br.com.primeit.pokedex.model.PokemonDesc;
 import br.com.primeit.pokedex.model.ResponsePokemon;
-import br.com.primeit.pokedex.model.info.PokemonInfo;
+import br.com.primeit.pokedex.model.PokemonInfo;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;

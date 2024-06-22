@@ -1,22 +1,13 @@
 package br.com.primeit.pokedex.ui.activity;
 
-import static android.content.ContentValues.TAG;
-
 import android.content.Context;
-import android.os.Bundle;
 import android.os.Environment;
-import android.util.Log;
 import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
 import java.io.File;
-import java.util.Objects;
 
-import br.com.primeit.pokedex.R;
 import br.com.primeit.pokedex.database.BasePokemonTask;
 import br.com.primeit.pokedex.database.BuscaPokemonTask;
 import br.com.primeit.pokedex.database.DeletePokemonTask;
@@ -25,7 +16,6 @@ import br.com.primeit.pokedex.database.PokemonSalvoDao;
 import br.com.primeit.pokedex.database.RecyclerView.PokemonSalvoAdapter;
 import br.com.primeit.pokedex.database.SavePokemonTask;
 import br.com.primeit.pokedex.model.PokemonSalvo;
-import br.com.primeit.pokedex.model.info.PokemonInfo;
 
 public class SavedListPokemonView {
     private final PokemonSalvoAdapter adapter;
